@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Npgsql;
 
 namespace npgsqlTester
@@ -11,7 +7,8 @@ namespace npgsqlTester
     {
         static void Main(string[] args)
         {
-            var connectionString = "";
+            //var connectionString = "Host=PG1,PG2;username=robtest_login;password=robtest_password;Database=robtest;";
+            var connectionString = "Host=PG1;username=robtest_login;password=robtest_password;Database=robtest;";
             using (var pgConnection = new NpgsqlConnection(connectionString))
             {
                 pgConnection.Open();
@@ -19,13 +16,13 @@ namespace npgsqlTester
                 {
                     try
                     {
-                        using (var command = new NpgsqlCommand("SELECT state,COUNT(1),pg_is_in_recovery(),inet_server_addr() FROM pg_stat_activity GROUP BY state;", pgConnection, pgTransaction))
+                        using (var command = new NpgsqlCommand("SELECT state,COUNT(1),pg_is_in_recovery(),inet_server_addr()::text FROM pg_stat_activity GROUP BY state;", pgConnection, pgTransaction))
                         {
                             using (var reader = command.ExecuteReader())
                             {
                                 while(reader.Read())
                                 {
-                                    Console.WriteLine(reader.GetString(0), reader.GetString(1), reader.GetString(2), reader.GetString(4));
+                                    Console.WriteLine("{0} {1} {2} {3}", reader.GetString(0), reader.GetInt64(1), reader.GetBoolean(2), reader.GetString(3));
                                 }
                             }
                         }
@@ -39,6 +36,8 @@ namespace npgsqlTester
                     }
                 }
             }
+            Console.WriteLine("Press, the any key.");
+            Console.ReadLine();
         }
     }
 }
