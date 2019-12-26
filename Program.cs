@@ -8,36 +8,49 @@ namespace npgsqlTester
         static void Main(string[] args)
         {
             //var connectionString = "Host=PG1,PG2;username=robtest_login;password=robtest_password;Database=robtest;";
-            var connectionString = "Host=PG1;username=robtest_login;password=robtest_password;Database=robtest;";
-            using (var pgConnection = new NpgsqlConnection(connectionString))
+            //var connectionString = "Host=PG1;username=robtest_login;password=robtest_password;Database=robtest;";
+
+            do
             {
-                pgConnection.Open();
-                using(var pgTransaction = pgConnection.BeginTransaction())
+                try
                 {
-                    try
+                    using (var pgConnection = new NpgsqlConnection(connectionString))
                     {
-                        using (var command = new NpgsqlCommand("SELECT state,COUNT(1),pg_is_in_recovery(),inet_server_addr()::text FROM pg_stat_activity GROUP BY state;", pgConnection, pgTransaction))
+                        pgConnection.Open();
+                        using (var pgTransaction = pgConnection.BeginTransaction())
                         {
-                            using (var reader = command.ExecuteReader())
+                            try
                             {
-                                while(reader.Read())
+                                using (var command = new NpgsqlCommand("SELECT state,COUNT(1),pg_is_in_recovery(),inet_server_addr()::text FROM pg_stat_activity GROUP BY state;", pgConnection, pgTransaction))
                                 {
-                                    Console.WriteLine("{0} {1} {2} {3}", reader.GetString(0), reader.GetInt64(1), reader.GetBoolean(2), reader.GetString(3));
+                                    using (var reader = command.ExecuteReader())
+                                    {
+                                        while (reader.Read())
+                                        {
+                                            Console.WriteLine("{0} {1} {2} {3}", reader.GetString(0), reader.GetInt64(1), reader.GetBoolean(2), reader.GetString(3));
+                                        }
+                                    }
                                 }
+
+
+                            }
+                            finally
+                            {
+                                pgTransaction.Rollback();
                             }
                         }
-                            
-                        
                     }
-                    finally
-                    {
-                        if (!pgTransaction.IsCompleted)
-                            pgTransaction.Rollback();
-                    }
+                    Console.WriteLine("q to quit, anything else to run query again!");
                 }
-            }
-            Console.WriteLine("Press, the any key.");
-            Console.ReadLine();
+                catch(Exception e)
+                {
+                    Console.Error.WriteLine(e);
+                }
+                
+            } while (Console.ReadLine() != "q");
+
+
+            
         }
     }
 }
