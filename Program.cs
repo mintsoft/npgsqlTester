@@ -7,6 +7,7 @@ namespace npgsqlTester
     {
         static void Main(string[] args)
         {
+            var connectionString = "Host=PG1,PG2;username=robtest_login;password=robtest_password;Database=robtest;Pooling=false;";
             //var connectionString = "Host=PG1,PG2;username=robtest_login;password=robtest_password;Database=robtest;";
             //var connectionString = "Host=PG1;username=robtest_login;password=robtest_password;Database=robtest;";
 
