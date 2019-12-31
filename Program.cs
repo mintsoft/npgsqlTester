@@ -65,8 +65,8 @@ namespace npgsqlTester
             //var connectionString = "Host=PG2,PG1;username=robtest_login;password=robtest_password;Database=robtest;TargetServerType=Secondary;";    //works, straight to pg2
             //var connectionString = "Host=PG2;username=robtest_login;password=robtest_password;Database=robtest;";
             //var connectionString = "Host=PG1,PG2;username=robtest_login;password=robtest_password;Database=robtest;TargetServerType=Primary;Pooling=true;KeepAlive=5;";        //works, straight to pg1
-            var primaryConnectionString = "Host=PG1,PG2;username=robtest_login;password=robtest_password;Database=robtest;TargetServerType=Primary;Pooling=true;KeepAlive=500;Enlist=false;Minimum Pool Size=4;";
-            var secondaryConnectionString = "Host=PG1,PG2;username=robtest_login;password=robtest_password;Database=robtest;TargetServerType=Secondary;Pooling=true;KeepAlive=500;Enlist=false;Minimum Pool Size=4;"; 
+            var primaryConnectionString = "Host=PG1,PG2;username=robtest_login;password=robtest_password;Database=robtest;TargetServerType=Primary;Pooling=true;KeepAlive=5;Enlist=false;Minimum Pool Size=4;";
+            var secondaryConnectionString = "Host=PG1,PG2;username=robtest_login;password=robtest_password;Database=robtest;TargetServerType=Secondary;Pooling=true;KeepAlive=5;Enlist=false;Minimum Pool Size=4;"; 
 
             do
             {
@@ -105,7 +105,6 @@ namespace npgsqlTester
                                         }
                                     }
                                 }
-                        
                             }
                             finally
                             {
@@ -122,7 +121,7 @@ namespace npgsqlTester
                     Debugger.Break();
                 }
 
-            } while (true || Console.ReadLine() != "q");
+            } while (Console.ReadLine() != "q");
         }
     }
 }
