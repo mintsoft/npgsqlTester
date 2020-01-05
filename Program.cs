@@ -84,24 +84,24 @@ namespace npgsqlTester
                         {
                             try
                             {
-                                using (var primaryCommand = new NpgsqlCommand("SELECT state,COUNT(1),pg_is_in_recovery(),inet_server_addr()::text FROM pg_stat_activity GROUP BY state;", primaryConnection, pgPrimaryTransaction))
+                                using (var primaryCommand = new NpgsqlCommand("SELECT pg_is_in_recovery(),inet_server_addr()::text;", primaryConnection, pgPrimaryTransaction))
                                 {
                                     using (var reader = primaryCommand.ExecuteReader())
                                     {
                                         while (reader.Read())
                                         {
-                                            Console.WriteLine("primary {0} {1} {2} {3}", reader.GetString(0),reader.GetInt64(1), reader.GetBoolean(2), reader.GetString(3));
+                                            Console.WriteLine("primary {0} {1}", reader.GetBoolean(0), reader.GetString(1));
                                         }
                                     }
                                 }
                         
-                                using (var secondaryCommand = new NpgsqlCommand("SELECT state,COUNT(1),pg_is_in_recovery(),inet_server_addr()::text FROM pg_stat_activity GROUP BY state;", secondaryConnection, pgSecondaryTransaction))
+                                using (var secondaryCommand = new NpgsqlCommand("SELECT pg_is_in_recovery(),inet_server_addr()::text;", secondaryConnection, pgSecondaryTransaction))
                                 {
                                     using (var reader = secondaryCommand.ExecuteReader())
                                     {
                                         while (reader.Read())
                                         {
-                                            Console.WriteLine("seconda {0} {1} {2} {3}", reader.GetString(0), reader.GetInt64(1), reader.GetBoolean(2), reader.GetString(3));
+                                            Console.WriteLine("seconda {0} {1}", reader.GetBoolean(0), reader.GetString(1));
                                         }
                                     }
                                 }
@@ -109,7 +109,7 @@ namespace npgsqlTester
                             finally
                             {
                                 pgPrimaryTransaction.Rollback();
-                                pgSecondaryTransaction.Rollback();
+                               pgSecondaryTransaction.Rollback();
                             }
                         }
                         Console.WriteLine("q to quit, anything else to run query again!");
