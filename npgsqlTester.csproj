@@ -79,8 +79,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\npgsql\src\Npgsql\Npgsql.csproj">
-      <Project>{7daf085b-fa33-4371-9dbb-5e5a6f7aa4df}</Project>
+    <ProjectReference Include="..\npgsql\src\Npgsql\Npgsql.csproj">
+      <Project>{9d13b739-62b1-4190-b386-7a9547304eb3}</Project>
       <Name>Npgsql</Name>
     </ProjectReference>
   </ItemGroup>
