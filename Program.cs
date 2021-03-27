@@ -81,17 +81,14 @@ namespace npgsqlTester
                     using (var primaryConnection = new NpgsqlConnection(primaryConnectionString))
                     using (var secondaryConnection = new NpgsqlConnection(secondaryConnectionString))
                     {
-                        Console.WriteLine("\tOpeningConnection");
                         primaryConnection.Open();
                         secondaryConnection.Open();
                         
-                        Console.WriteLine("\tBeginningTransaction");
                         using (var pgPrimaryTransaction = primaryConnection.BeginTransaction())
                         using (var pgSecondaryTransaction = secondaryConnection.BeginTransaction())
                         {
                             try
                             {
-                                Console.WriteLine("\tRunningFirst");
                                 using (var primaryCommand = new NpgsqlCommand("SELECT pg_is_in_recovery(),inet_server_addr()::text;", primaryConnection, pgPrimaryTransaction))
                                 {
                                     using (var reader = primaryCommand.ExecuteReader())
@@ -103,7 +100,6 @@ namespace npgsqlTester
                                     }
                                 }
 
-                                Console.WriteLine("\tRunningSecond");
                                 using (var secondaryCommand = new NpgsqlCommand("SELECT pg_is_in_recovery(),inet_server_addr()::text;", secondaryConnection, pgSecondaryTransaction))
                                 {
                                     using (var reader = secondaryCommand.ExecuteReader())
