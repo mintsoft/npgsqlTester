@@ -69,8 +69,8 @@ namespace npgsqlTester
             //var connectionString = "Host=PG1,PG2;username=robtest_login;password=robtest_password;Database=robtest;TargetSessionAttributes=Primary;Pooling=false";             //
             //var connectionString = "Host=PG1,PG2;username=robtest_login;password=robtest_password;Database=robtest;TargetSessionAttributes=Primary;Pooling=false;KeepAlive=5";
 
-            var primaryConnectionString = "Host=PG1,PG2;username=robtest_login;password=robtest_password;Database=robtest;TargetSessionAttributes=Primary;Pooling=true;KeepAlive=5;Enlist=false;Minimum Pool Size=4;Multiplexing=false;";
-            var secondaryConnectionString = "Host=PG1,PG2;username=robtest_login;password=robtest_password;Database=robtest;TargetSessionAttributes=Secondary;Pooling=true;KeepAlive=5;Enlist=false;Minimum Pool Size=4;Multiplexing=false;";
+            var primaryConnectionString = "Host=PG1,PG2;username=robtest_login;password=robtest_password;Database=robtest;TargetSessionAttributes=Primary;HostRecheckSeconds=1;Pooling=true;KeepAlive=5;Enlist=false;Minimum Pool Size=4;Multiplexing=false;";
+            var secondaryConnectionString = "Host=PG1,PG2;username=robtest_login;password=robtest_password;Database=robtest;TargetSessionAttributes=Secondary;HostRecheckSeconds=1;Pooling=true;KeepAlive=5;Enlist=false;Minimum Pool Size=4;Multiplexing=false;";
             //var primaryConnectionString = connectionString;
 
             do
@@ -123,7 +123,7 @@ namespace npgsqlTester
                 catch (Exception e)
                 {
                     Console.Error.WriteLine(e);
-                    Debugger.Break();
+                    //Debugger.Break();
                 }
 
             } while (Console.ReadLine().ToLower() != "q");
