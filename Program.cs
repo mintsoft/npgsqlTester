@@ -9,14 +9,14 @@ namespace npgsqlTester
         /*
         static void Main(string[] args)
         {
-            //var connectionString = "Host=PG1,PG2;username=robtest_login;password=robtest_password;Database=robtest;Pooling=false;";                     //works, pg1 without failover, due to implicity TargetServerType=Any
-            //var connectionString = "Host=PG1,PG2;username=robtest_login;password=robtest_password;Database=robtest;TargetServerType=Any";             //works, pg1 without failover
-            //var connectionString = "Host=PG1,PG2;username=robtest_login;password=robtest_password;Database=robtest;TargetServerType=Primary;";        //works, straight to pg1
-            //var connectionString = "Host=PG1,PG2;username=robtest_login;password=robtest_password;Database=robtest;TargetServerType=Secondary;";    //works, tests and fails over to pg2
-            //var connectionString = "Host=PG2,PG1;username=robtest_login;password=robtest_password;Database=robtest;TargetServerType=Secondary;";    //works, straight to pg2
+            //var connectionString = "Host=PG1,PG2;username=robtest_login;password=robtest_password;Database=robtest;Pooling=false;";                     //works, pg1 without failover, due to implicity TargetSessionAttributes=Any
+            //var connectionString = "Host=PG1,PG2;username=robtest_login;password=robtest_password;Database=robtest;TargetSessionAttributes=Any";             //works, pg1 without failover
+            //var connectionString = "Host=PG1,PG2;username=robtest_login;password=robtest_password;Database=robtest;TargetSessionAttributes=Primary;";        //works, straight to pg1
+            //var connectionString = "Host=PG1,PG2;username=robtest_login;password=robtest_password;Database=robtest;TargetSessionAttributes=Secondary;";    //works, tests and fails over to pg2
+            //var connectionString = "Host=PG2,PG1;username=robtest_login;password=robtest_password;Database=robtest;TargetSessionAttributes=Secondary;";    //works, straight to pg2
             //var connectionString = "Host=PG2;username=robtest_login;password=robtest_password;Database=robtest;";
-            //var connectionString = "Host=PG1,PG2;username=robtest_login;password=robtest_password;Database=robtest;TargetServerType=Primary;Pooling=true;KeepAlive=5;";        //works, straight to pg1
-            var connectionString = "Host=PG1,PG2;username=robtest_login;password=robtest_password;Database=robtest;TargetServerType=Primary;Pooling=true;KeepAlive=5;Enlist=false;Minimum Pool Size=4;";        //works, straight to pg1
+            //var connectionString = "Host=PG1,PG2;username=robtest_login;password=robtest_password;Database=robtest;TargetSessionAttributes=Primary;Pooling=true;KeepAlive=5;";        //works, straight to pg1
+            var connectionString = "Host=PG1,PG2;username=robtest_login;password=robtest_password;Database=robtest;TargetSessionAttributes=Primary;Pooling=true;KeepAlive=5;Enlist=false;Minimum Pool Size=4;";        //works, straight to pg1
 
             do
             {
@@ -58,15 +58,20 @@ namespace npgsqlTester
         */
         static void Main(string[] args)
         {
-            //var connectionString = "Host=PG1,PG2;username=robtest_login;password=robtest_password;Database=robtest;Pooling=false;";                     //works, pg1 without failover, due to implicity TargetServerType=Any
-            //var connectionString = "Host=PG1,PG2;username=robtest_login;password=robtest_password;Database=robtest;TargetServerType=Any";             //works, pg1 without failover
-            //var connectionString = "Host=PG1,PG2;username=robtest_login;password=robtest_password;Database=robtest;TargetServerType=Primary;";        //works, straight to pg1
-            //var connectionString = "Host=PG1,PG2;username=robtest_login;password=robtest_password;Database=robtest;TargetServerType=Secondary;";    //works, tests and fails over to pg2
-            //var connectionString = "Host=PG2,PG1;username=robtest_login;password=robtest_password;Database=robtest;TargetServerType=Secondary;";    //works, straight to pg2
+            //var connectionString = "Host=PG1,PG2;username=robtest_login;password=robtest_password;Database=robtest;Pooling=false;";                     //works, pg1 without failover, due to implicity TargetSessionAttributes=Any
+            //var connectionString = "Host=PG1,PG2;username=robtest_login;password=robtest_password;Database=robtest;TargetSessionAttributes=Any";             //works, pg1 without failover
+            //var connectionString = "Host=PG1,PG2;username=robtest_login;password=robtest_password;Database=robtest;TargetSessionAttributes=Primary;";        //works, straight to pg1
+            //var connectionString = "Host=PG1,PG2;username=robtest_login;password=robtest_password;Database=robtest;TargetSessionAttributes=Secondary;";    //works, tests and fails over to pg2
+            //var connectionString = "Host=PG2,PG1;username=robtest_login;password=robtest_password;Database=robtest;TargetSessionAttributes=Secondary;";    //works, straight to pg2
             //var connectionString = "Host=PG2;username=robtest_login;password=robtest_password;Database=robtest;";
-            //var connectionString = "Host=PG1,PG2;username=robtest_login;password=robtest_password;Database=robtest;TargetServerType=Primary;Pooling=true;KeepAlive=5;";        //works, straight to pg1
-            var primaryConnectionString = "Host=PG1,PG2;username=robtest_login;password=robtest_password;Database=robtest;TargetServerType=Primary;Pooling=true;KeepAlive=5;Enlist=false;Minimum Pool Size=4;Multiplexing=false;";
-            var secondaryConnectionString = "Host=PG1,PG2;username=robtest_login;password=robtest_password;Database=robtest;TargetServerType=Secondary;Pooling=true;KeepAlive=5;Enlist=false;Minimum Pool Size=4;Multiplexing=false;"; 
+            //var connectionString = "Host=PG1,PG2;username=robtest_login;password=robtest_password;Database=robtest;TargetSessionAttributes=Primary;Pooling=true;KeepAlive=5;";        //works, straight to pg1
+            
+            //var connectionString = "Host=PG1,PG2;username=robtest_login;password=robtest_password;Database=robtest;TargetSessionAttributes=Primary;Pooling=false";             //
+            //var connectionString = "Host=PG1,PG2;username=robtest_login;password=robtest_password;Database=robtest;TargetSessionAttributes=Primary;Pooling=false;KeepAlive=5";
+
+            var primaryConnectionString = "Host=PG1,PG2;username=robtest_login;password=robtest_password;Database=robtest;TargetSessionAttributes=Primary;Pooling=true;KeepAlive=5;Enlist=false;Minimum Pool Size=4;Multiplexing=false;";
+            var secondaryConnectionString = "Host=PG1,PG2;username=robtest_login;password=robtest_password;Database=robtest;TargetSessionAttributes=Secondary;Pooling=true;KeepAlive=5;Enlist=false;Minimum Pool Size=4;Multiplexing=false;";
+            //var primaryConnectionString = connectionString;
 
             do
             {
@@ -76,14 +81,17 @@ namespace npgsqlTester
                     using (var primaryConnection = new NpgsqlConnection(primaryConnectionString))
                     using (var secondaryConnection = new NpgsqlConnection(secondaryConnectionString))
                     {
+                        Console.WriteLine("\tOpeningConnection");
                         primaryConnection.Open();
                         secondaryConnection.Open();
                         
+                        Console.WriteLine("\tBeginningTransaction");
                         using (var pgPrimaryTransaction = primaryConnection.BeginTransaction())
                         using (var pgSecondaryTransaction = secondaryConnection.BeginTransaction())
                         {
                             try
                             {
+                                Console.WriteLine("\tRunningFirst");
                                 using (var primaryCommand = new NpgsqlCommand("SELECT pg_is_in_recovery(),inet_server_addr()::text;", primaryConnection, pgPrimaryTransaction))
                                 {
                                     using (var reader = primaryCommand.ExecuteReader())
@@ -94,7 +102,8 @@ namespace npgsqlTester
                                         }
                                     }
                                 }
-                        
+
+                                Console.WriteLine("\tRunningSecond");
                                 using (var secondaryCommand = new NpgsqlCommand("SELECT pg_is_in_recovery(),inet_server_addr()::text;", secondaryConnection, pgSecondaryTransaction))
                                 {
                                     using (var reader = secondaryCommand.ExecuteReader())
@@ -108,7 +117,7 @@ namespace npgsqlTester
                             }
                             finally
                             {
-                                pgPrimaryTransaction.Rollback();
+                               pgPrimaryTransaction.Rollback();
                                pgSecondaryTransaction.Rollback();
                             }
                         }
@@ -121,7 +130,7 @@ namespace npgsqlTester
                     Debugger.Break();
                 }
 
-            } while (Console.ReadLine() != "q");
+            } while (Console.ReadLine().ToLower() != "q");
         }
     }
 }
